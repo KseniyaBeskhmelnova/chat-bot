@@ -9,6 +9,7 @@ def main() -> None:
             updates = bot.telegram_client.getUpdates(next_update_offset)
             bot.database_client.persist_updates(updates)
             for update in updates:
+                next_update_offset = max(next_update_offset, update["update_id"] + 1)
                 message = update.get("message", {})
                 chat_id = message.get("chat", {}).get("id")
                 if not chat_id:
@@ -27,7 +28,6 @@ def main() -> None:
                     )
                     print("S", end="", flush=True)
 
-                next_update_offset = max(next_update_offset, update["update_id"] + 1)
             time.sleep(1)
     except KeyboardInterrupt:
         print("\nBye!")
