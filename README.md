@@ -4,27 +4,27 @@
 Бот отвечает эхом на текстовые сообщения и пересылает стикеры.  
 Все входящие обновления сохраняются в локальную базу данных SQLite.
 
-## Функционал
+## ??Функционал
 
 - Эхо-ответ на любое текстовое сообщение
 - Пересылка стикеров
 - Сохранение всех обновлений в таблицу
 
-## Запуск
+## ??Запуск
 1. Создание виртуального окружения:
    ```bash
-   python3 -m venv .venv```
+   python3 -m venv .venv
 2. Активация виртуального окружения:
    ```bash
-   source .venv/bin/activate```
+   source .venv/bin/activate
 3. Установка зависимостей:
    ```bash
-   pip install -r requirements.txt```
+   pip install -r requirements.txt
 4. Запуск базы данных:
    ```bash
-   python3 -m bot.recreate_database```
+   python3 -m bot.recreate_database
 5. Запуск бота:
    ```bash
-   python3 -m bot```
+   python3 -m bot
 6. Остановка бота:
    Ctrl+c
