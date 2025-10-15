@@ -31,5 +31,8 @@ def sendMessage(chat_id: int, text: str, **params) -> dict:
 def sendSticker(chat_id: int, sticker_file_id: str) -> dict:
     return makeRequest("sendSticker", chat_id=chat_id, sticker=sticker_file_id)
 
+def sendPhoto(chat_id: int, photo_file_id: str, **params) -> dict:
+    return makeRequest("sendPhoto", chat_id=chat_id, photo=photo_file_id, **params)
+
 def getMe() -> dict:
     return makeRequest("getMe")
