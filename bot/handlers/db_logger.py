@@ -1,10 +1,10 @@
-from bot.handler import Handler  # убедитесь, что путь правильный
-import bot.database_client  # ваш модуль с persist_updates
+from bot.handlers.handler import Handler, HandlerStatus
+import bot.database_client
 
 class DatabaseLogger(Handler):
-    def can_handle(self, update: dict) -> bool:
+    def can_handle(self, update: dict, state: str, order_json: dict) -> bool:
         return True
 
-    def handle(self, update: dict) -> bool:
+    def handle(self, update: dict, state: str, order_json: dict) -> bool:
         bot.database_client.persist_updates([update])
-        return True
+        return HandlerStatus.CONTINUE
