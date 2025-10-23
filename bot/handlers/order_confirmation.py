@@ -2,6 +2,7 @@ import json
 import bot.telegram_client
 import bot.database_client
 from bot.handlers.handler import Handler, HandlerStatus
+from bot.keyboards.order_keyboards import confirm_keyboard
 
 
 class OrderConfirmation(Handler):
@@ -15,6 +16,7 @@ class OrderConfirmation(Handler):
 
     def handle(self, update: dict, state: str, order_json: dict) -> HandlerStatus:
         telegram_id = update["callback_query"]["from"]["id"]
+        bot.database_client.update_user_data(telegram_id, order_json)
         callback_data = update["callback_query"]["data"]
 
         if callback_data == "drink_none":
@@ -51,14 +53,7 @@ class OrderConfirmation(Handler):
             "✅ Confirm your order?"
         )
 
-        reply_markup = json.dumps({
-            "inline_keyboard": [
-                [
-                    {"text": "✅ Confirm", "callback_data": "action_confirm"},
-                    {"text": "🔁 Start Again", "callback_data": "action_restart"}
-                ]
-            ]
-        })
+        reply_markup = confirm_keyboard()
 
         bot.telegram_client.sendMessage(
             chat_id=chat_id,

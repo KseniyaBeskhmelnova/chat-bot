@@ -46,11 +46,9 @@ def ensure_user_exists(telegram_id: int) -> None:
     If the user doesn't exist, create them. All operations happen in a single transaction."""
     with sqlite3.connect(os.getenv("SQLITE_DATABASE_PATH")) as connection:
         with connection:
-            # Check if user exists
             cursor = connection.execute(
                 "SELECT 1 FROM users WHERE telegram_id = ?", (telegram_id,))
             
-            # If user doesn't exist, create them
             if cursor.fetchone() is None:
                 connection.execute(
                     "INSERT INTO users (telegram_id) VALUES (?)", (telegram_id,))
